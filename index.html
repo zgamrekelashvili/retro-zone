@@ -1,52 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Name</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — Classic Cars & Parts Marketplace</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <header>
-    <nav>
-      <span class="nav__logo">Project Name</span>
-      <div class="nav__links">
-        <a href="index.html">Search</a>
-        <a href="saved.html">Saved</a>
-      </div>
-      <div class="nav__actions">
-        <span id="nav-user"></span>
-        <button id="logout-btn" type="button">Logout</button>
-      </div>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Catalog</a>
+        <a href="post.html" class="nav-link">Post an Ad</a>
+        <a href="profile.html" class="nav-link">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
   </header>
 
   <main>
-
-    <!-- search / filter form -->
-    <section>
-      <form id="search-form">
-        <!-- add your inputs here (at least 3 different types) -->
-        <button type="submit">Search</button>
-      </form>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Est. 1970–2000</p>
+        <h1 class="hero-headline">Find Your <em>Classic</em></h1>
+        <p class="hero-sub">Authentic machines &amp; rare parts. Curated for the serious collector.</p>
+        <div class="hero-search">
+          <input type="text" id="search-input" placeholder="Search cars, parts, eras…" autocomplete="off" />
+          <button class="btn btn-primary" id="search-btn">Search</button>
+        </div>
+      </div>
+      <div class="hero-tape">
+        <span>1970 Dodge Challenger</span><span>·</span>
+        <span>1985 Ferrari Testarossa</span><span>·</span>
+        <span>1993 Toyota Supra</span><span>·</span>
+        <span>1969 Ford Mustang Boss 429</span><span>·</span>
+        <span>1972 Lamborghini Countach</span><span>·</span>
+        <span>1988 BMW M3</span>
+      </div>
     </section>
 
-    <!-- loading and error states -->
-    <p id="loading-msg" hidden>Loading…</p>
-    <p id="error-msg" hidden></p>
+    <div class="catalog-layout">
+      <!-- Sidebar Filters -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2>Filters</h2>
+          <button class="btn-reset" id="reset-filters">Reset</button>
+        </div>
 
-    <!-- dynamically generated cards land here -->
-    <section>
-      <div id="results-grid"></div>
-    </section>
+        <div class="filter-group">
+          <h3 class="filter-title">Catalog</h3>
+          <label class="filter-radio">
+            <input type="radio" name="catalog" value="all" checked /> All
+          </label>
+          <label class="filter-radio">
+            <input type="radio" name="catalog" value="cars" /> Classic Cars
+          </label>
+          <label class="filter-radio">
+            <input type="radio" name="catalog" value="parts" /> Spare Parts
+          </label>
+        </div>
 
+        <div class="filter-group">
+          <h3 class="filter-title">Era / Decade</h3>
+          <label class="filter-check"><input type="checkbox" name="era" value="1970s" /> 1970s</label>
+          <label class="filter-check"><input type="checkbox" name="era" value="1980s" /> 1980s</label>
+          <label class="filter-check"><input type="checkbox" name="era" value="1990s" /> 1990s</label>
+        </div>
+
+        <div class="filter-group">
+          <h3 class="filter-title">Country of Origin</h3>
+          <label class="filter-check"><input type="checkbox" name="country" value="USA" /> 🇺🇸 USA</label>
+          <label class="filter-check"><input type="checkbox" name="country" value="Germany" /> 🇩🇪 Germany</label>
+          <label class="filter-check"><input type="checkbox" name="country" value="Japan" /> 🇯🇵 Japan</label>
+          <label class="filter-check"><input type="checkbox" name="country" value="Italy" /> 🇮🇹 Italy</label>
+        </div>
+
+        <div class="filter-group">
+          <h3 class="filter-title">Engine Type</h3>
+          <label class="filter-check"><input type="checkbox" name="engine" value="Inline-4" /> Inline-4</label>
+          <label class="filter-check"><input type="checkbox" name="engine" value="V6" /> V6</label>
+          <label class="filter-check"><input type="checkbox" name="engine" value="V8" /> V8</label>
+          <label class="filter-check"><input type="checkbox" name="engine" value="V12" /> V12</label>
+          <label class="filter-check"><input type="checkbox" name="engine" value="Twin-Turbo" /> Twin-Turbo</label>
+          <label class="filter-check"><input type="checkbox" name="engine" value="Flat-6" /> Flat-6</label>
+        </div>
+
+        <div class="filter-group">
+          <h3 class="filter-title">Trim Level</h3>
+          <label class="filter-check"><input type="checkbox" name="trim" value="Base" /> Base</label>
+          <label class="filter-check"><input type="checkbox" name="trim" value="Sport" /> Sport</label>
+          <label class="filter-check"><input type="checkbox" name="trim" value="Luxury" /> Luxury</label>
+        </div>
+      </aside>
+
+      <!-- Main Catalog -->
+      <div class="catalog-main">
+        <div class="catalog-toolbar">
+          <div class="catalog-tabs">
+            <button class="tab-btn active" data-tab="cars">🚗 Classic Cars</button>
+            <button class="tab-btn" data-tab="parts">🔧 Spare Parts</button>
+          </div>
+          <span class="result-count" id="result-count">Loading…</span>
+        </div>
+
+        <div id="loading" class="loading-spinner" aria-live="polite">
+          <div class="spinner"></div>
+          <p>Loading listings…</p>
+        </div>
+        <div id="error-notice" class="error-notice hidden" aria-live="assertive"></div>
+        <div class="items-grid" id="items-grid"></div>
+        <div class="empty-state hidden" id="empty-state">
+          <span class="empty-icon">🏁</span>
+          <p>No listings match your filters.</p>
+          <button class="btn btn-secondary" id="clear-filters-empty">Clear Filters</button>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer>
-    <!-- footer content -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="post.html">Post an Ad</a>
+        <a href="profile.html">Profile</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
   </footer>
 
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
+
