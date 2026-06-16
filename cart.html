@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — Cart &amp; Checkout</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Catalog</a>
+        <a href="post.html" class="nav-link">Post an Ad</a>
+        <a href="profile.html" class="nav-link">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link active">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="cart-main">
+    <div class="cart-container">
+      <h1>Your Cart</h1>
+
+      <div class="cart-layout">
+        <!-- Cart Items -->
+        <div class="cart-items-section">
+          <div id="cart-items-list"></div>
+          <div class="cart-actions" id="cart-actions" style="display:none;">
+            <button class="btn btn-ghost btn-sm" id="clear-cart">Remove All</button>
+          </div>
+        </div>
+
+        <!-- Order Summary + Checkout -->
+        <div class="cart-sidebar" id="cart-sidebar">
+          <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="summary-line">
+              <span>Items</span><span id="summary-count">0</span>
+            </div>
+            <div class="summary-line">
+              <span>Subtotal</span><span id="summary-subtotal">$0</span>
+            </div>
+            <div class="summary-line summary-total">
+              <span>Total</span><span id="summary-total">$0</span>
+            </div>
+          </div>
+
+          <form id="checkout-form" class="checkout-form" novalidate>
+            <h2>Checkout</h2>
+
+            <div class="form-group">
+              <label for="checkout-name">Full Name <span class="req">*</span></label>
+              <input type="text" id="checkout-name" name="name" placeholder="John Doe" required minlength="3" />
+              <span class="field-error" id="err-checkout-name"></span>
+            </div>
+            <div class="form-group">
+              <label for="checkout-email">Email <span class="req">*</span></label>
+              <input type="email" id="checkout-email" name="email" placeholder="john@example.com" required />
+              <span class="field-error" id="err-checkout-email"></span>
+            </div>
+            <div class="form-group">
+              <label for="checkout-phone">Phone</label>
+              <input type="tel" id="checkout-phone" name="phone" placeholder="+1 555 000 0000" />
+            </div>
+            <div class="form-group">
+              <label for="checkout-address">Shipping Address <span class="req">*</span></label>
+              <textarea id="checkout-address" name="address" rows="3" placeholder="123 Main St, City, State, ZIP" required minlength="10"></textarea>
+              <span class="field-error" id="err-checkout-address"></span>
+            </div>
+            <div class="form-group">
+              <label for="checkout-payment">Payment Method <span class="req">*</span></label>
+              <select id="checkout-payment" name="payment" required>
+                <option value="">— Select —</option>
+                <option value="bank">Bank Transfer</option>
+                <option value="escrow">Escrow Service</option>
+                <option value="crypto">Cryptocurrency</option>
+                <option value="cash">Cash on Collection</option>
+              </select>
+              <span class="field-error" id="err-checkout-payment"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-large btn-full" id="checkout-btn">
+              Place Order
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Order success -->
+      <div id="order-success" class="success-card hidden">
+        <span class="success-icon">🏆</span>
+        <h2>Order Placed!</h2>
+        <p>Your enquiry has been submitted. The seller will contact you via email.</p>
+        <a href="index.html" class="btn btn-primary">Back to Catalog</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Catalog</a>
+        <a href="post.html">Post an Ad</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
 
