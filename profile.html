@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — My Profile</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Catalog</a>
+        <a href="post.html" class="nav-link">Post an Ad</a>
+        <a href="profile.html" class="nav-link active">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="profile-main">
+    <div class="profile-container">
+      <div class="profile-hero">
+        <div class="profile-avatar">🧑‍🔧</div>
+        <div class="profile-info">
+          <h1 class="profile-name">Classic Collector</h1>
+          <p class="profile-meta">Member since January 2026</p>
+          <div class="profile-stats">
+            <div class="stat-block">
+              <span class="stat-num" id="stat-listings">0</span>
+              <span class="stat-label">Listings</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num" id="stat-cart">0</span>
+              <span class="stat-label">Cart Items</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num">2026</span>
+              <span class="stat-label">Member Year</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="profile-section">
+        <div class="section-header">
+          <h2>My Listings</h2>
+          <a href="post.html" class="btn btn-primary btn-sm">+ New Listing</a>
+        </div>
+        <div id="my-listings"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Catalog</a>
+        <a href="post.html">Post an Ad</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
 
