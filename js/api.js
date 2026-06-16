@@ -18,10 +18,10 @@ const CARS = [
     engineType: "V8",
     displacement: "7.2L",
     trim: "Sport",
-    price: 68500,
+    price: 78500,
     condition: "Restored",
     color: "Plum Crazy Purple",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1604940500627-d3f44d1d21c6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1970",
       "Country": "USA",
@@ -50,7 +50,7 @@ const CARS = [
     price: 210000,
     condition: "Original",
     color: "Rosso Corsa",
-    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1679604422070-9b282b8dd9ab?q=80&w=1239&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1985",
       "Country": "Italy",
@@ -79,7 +79,7 @@ const CARS = [
     price: 95000,
     condition: "Original",
     color: "Targa Silver",
-    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1627008119197-6889fd74266a?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1993",
       "Country": "Japan",
@@ -107,7 +107,7 @@ const CARS = [
     price: 185000,
     condition: "Restored",
     color: "Chamonix White",
-    image: "https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1703679467837-9ada46c5bb50?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1972",
       "Country": "Germany",
@@ -131,10 +131,10 @@ const CARS = [
     engineType: "V8",
     displacement: "7.0L",
     trim: "Sport",
-    price: 145000,
+    price: 345000,
     condition: "Restored",
     color: "Raven Black",
-    image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&q=80",
+    image: "https://automanager.blob.core.windows.net/wmphotos/024477/2de6e7bfb5444c3eb98bf493eeb7f743/f2c2da7b20_1280.jpg",
     specs: {
       "Year": "1969",
       "Country": "USA",
@@ -161,7 +161,7 @@ const CARS = [
     price: 78000,
     condition: "Original",
     color: "Jet Black",
-    image: "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1744233253535-b2d74af4af42?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1988",
       "Country": "Germany",
@@ -188,7 +188,7 @@ const CARS = [
     price: 340000,
     condition: "Original",
     color: "Giallo Fly",
-    image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1654442596489-554b51c9313a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1991",
       "Country": "Italy",
@@ -212,10 +212,10 @@ const CARS = [
     engineType: "Flat-6",
     displacement: "3.0L",
     trim: "Base",
-    price: 62000,
+    price: 59500,
     condition: "Restored",
     color: "Guards Red",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1612991848744-97e32460d13a?q=80&w=1286&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     specs: {
       "Year": "1979",
       "Country": "Germany",
@@ -227,7 +227,61 @@ const CARS = [
       "Trim": "Base"
     },
     history: "The 911 SC represented Porsche's engineering refinement after the controversial 912 years. With the Targa body style — Porsche's innovative safety roll bar — this example combines open-air motoring with the legendary 911 experience. Restored to Concours-adjacent quality with all rubber, gaskets, and bushings renewed."
-  }
+  },
+ {
+    id: "car-102", // Dodge-ის სტილის ID
+    type: "cars",
+    title: "1991 Mercedes-Benz 500E (W124)",
+    year: 1991,
+    era: "1990s",
+    country: "Germany",
+    engine: "5.0L V8",
+    engineType: "V8",
+    displacement: "5.0L",
+    trim: "Base",
+    price: 85000,
+    condition: "Mint",
+    color: "Silver Metallic",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjwcqrprYB4_dTY09FIn7VEYXJz7Nyj_VcVw&s",
+    specs: {
+      "Year": "1991",
+      "Country": "Germany",
+      "Engine": "5.0L V8",
+      "Transmission": "4-Speed Automatic",
+      "Horsepower": "322 hp",
+      "Body": "Sedan",
+      "Mileage": "112,000 km",
+      "Trim": "Base"
+    },
+    history: "The 1991 Mercedes-Benz 500E (W124) is a legendary, hand-built 'Q-car' engineered and assembled in close collaboration with Porsche. Powered by a Porsche-tuned 5.0-liter V8 engine, each unit took exactly 18 days to complete at Porsche's Zuffenhausen factory. Featuring a wider body, flared wheel arches, and Recaro sports seats, this model represents one of the ultimate high-performance sedans of the 1990s."
+  },
+  {
+    id: "car-103",
+    type: "cars",
+    title: "1995 Mercedes-Benz S-Class (W140)",
+    year: 1995,
+    era: "1990s",
+    country: "Germany",
+    engine: "5.0L V8",
+    engineType: "V8",
+    displacement: "5.0L",
+    trim: "S500",
+    price: 18500,
+    condition: "Original",
+    color: "Obsidian Black",
+    image: "https://images.unsplash.com/photo-1695547274114-e45ec358e998?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: {
+      "Year": "1995",
+      "Country": "Germany",
+      "Engine": "5.0L V8 (S500)",
+      "Transmission": "5-Speed Automatic",
+      "Horsepower": "315 hp",
+      "Body": "Sedan",
+      "Mileage": "180,000 km",
+      "Condition": "Original / Mint"
+    },
+    history: "The Mercedes-Benz W140 S-Class is widely regarded as the pinnacle of over-engineered German automotive craftsmanship. Launched in the 1990s, it introduced groundbreaking luxury and safety innovations, including double-pane window glass, parameter steering, and voice control. Known for its tank-like build quality and unparalleled ride comfort, the W140 remains an ultimate timeless icon of prestige and power."
+  },
 ];
 
 // ---------------------------------------------------------------
@@ -248,7 +302,7 @@ const PARTS = [
     price: 3800,
     condition: "Rebuilt",
     color: "N/A",
-    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80",
+    image: "https://blueprintengines.com/cdn/shop/files/BP302_3.jpg?v=1773336653&width=1080",
     specs: {
       "Type": "Short Block",
       "Displacement": "302 ci / 5.0L",
@@ -272,10 +326,10 @@ const PARTS = [
     engineType: "Inline-4",
     displacement: "N/A",
     trim: "Sport",
-    price: 1200,
+    price: 690,
     condition: "Used",
     color: "N/A",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://racingdiffs.com/cdn/shop/products/bmw-188mm-lsd-e36-medium-case-rebuilt-adjustable-racingdiffs_1200x.jpg?v=1764074945",
     specs: {
       "Type": "Limited Slip Differential",
       "Ratio": "3.73:1",
@@ -300,7 +354,7 @@ const PARTS = [
     price: 4500,
     condition: "Used",
     color: "N/A",
-    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80",
+    image: "https://www.mazworx.com/resize/Shared/Images/Product/2JZ-GTE-Stage-1-5-Cylinder-Head/IMG_0511.jpg?bw=1000&w=1000&bh=1000&h=1000",
     specs: {
       "Engine": "2JZ-GTE",
       "Type": "Cylinder Head (Complete)",
@@ -323,10 +377,10 @@ const PARTS = [
     engineType: "Flat-6",
     displacement: "N/A",
     trim: "Luxury",
-    price: 890,
+    price: 1200,
     condition: "Used",
     color: "Nero",
-    image: "https://images.unsplash.com/photo-1617531653332-bd46c16f4d68?w=600&q=80",
+    image: "https://cars.bonhams.com/_next/image.jpg?url=https%3A%2F%2Fimg1.bonhams.com%2Fimage%3Fsrc%3DImages%2Flive%2F2008-12%2F19%2F7799943-8-1.jpg&w=2400&q=75",
     specs: {
       "Fitment": "1985–1991 Ferrari Testarossa",
       "Side": "Driver (Left)",
@@ -351,7 +405,7 @@ const PARTS = [
     price: 3200,
     condition: "Rebuilt",
     color: "N/A",
-    image: "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=600&q=80",
+    image: "https://cbradleymotorsport.co.uk/cdn/shop/files/eng1541_1024x1024.jpg?v=1688053460",
     specs: {
       "Type": "Carburettor Set (6 units)",
       "Model": "Weber 45 DCOE",
@@ -373,10 +427,10 @@ const PARTS = [
     engineType: "Flat-6",
     displacement: "N/A",
     trim: "Base",
-    price: 680,
+    price: 670,
     condition: "Used",
     color: "Brushed Aluminum",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80",
+    image: "https://images-porsche.imgix.net/-/media/0468F8ADBAED4365A936981DAD4EF911_CB5A94CC84A845B0ABD2A14DAFD73935_019-editorial_16-9_Image_L?w=1920&h=1080&q=45&crop=faces%2Centropy%2Cedges&auto=format",
     specs: {
       "Fitment": "1977–1989 Porsche 911 Targa",
       "Finish": "Brushed Aluminum",
@@ -385,6 +439,60 @@ const PARTS = [
       "Seals": "Not included"
     },
     history: "Genuine Porsche Targa bar removed from a 1979 911 SC during conversion to a full coupe configuration. The bar is structurally sound with normal surface oxidation consistent with age. Surface can be re-polished to original shine. Original mounting hardware and trim clips included."
+  },
+  {
+    id: "part-207",
+    type: "parts",
+    title: "Mercedes-Benz W124 4-Speed Automatic Transmission",
+    year: 1991,
+    era: "1990s",
+    country: "Germany",
+    engine: "5.0L V8", 
+    engineType: "V8",
+    displacement: "5.0L",
+    trim: "OEM",
+    price: 800, 
+    condition: "Used / Tested",
+    color: "N/A",
+    image: "https://assets.globalparts.co.uk/assets/jpg/a1242704002_1/gearbox-722431-722-431-warranty-mercedes-w124-automatic-sku-a1242704002-photo-1.webp?w=1080&q=75&v=1",
+    specs: {
+      "Type": "Automatic Transmission",
+      "Model": "722.3 (4M10)",
+      "Configuration": "4-Speed Hydraulic",
+      "Condition": "Tested & Fully Functional",
+      "Fluid Fluid": "Fresh ATF Included",
+      "Mileage": "140,000 km",
+      "Compatibility": "1986-1993 Mercedes W124 (V8/Inline-6)",
+      "Warranty": "30 Days"
+    },
+    history: "An original Mercedes-Benz 722.3 4-speed automatic transmission pulled from a running, low-mileage W124. This robust hydraulic gearbox has been thoroughly inspected, pressure tested, and cleaned. It shifts smoothly through all gears and comes complete with the torque converter. Ideal replacement for high-performance W124 models."
+  },
+  {
+    id: "part-202",
+    type: "parts",
+    title: "Mercedes-Benz 18\" AMG Monoblock Wheels (Set of 4)",
+    year: 1995,
+    era: "1990s",
+    country: "Germany",
+    engine: "N/A",
+    engineType: "N/A",
+    displacement: "N/A",
+    trim: "AMG",
+    price: 2500, 
+    condition: "Original",
+    color: "Silver",
+    image: "https://thembmarket.com/cdn-cgi/image/fit=contain,width=1200,quality=100//uploads/listings/ndume254/w463-wheels/cfa9bfd2-d3d9-42a2-b104-692c6cad1323.png", 
+    specs: {
+      "Type": "AMG Monoblock",
+      "Size": "18 x 8.5J",
+      "Configuration": "5x112 Bolt Pattern",
+      "Condition": "Original Factory Paint",
+      "Offset": "ET47",
+      "Material": "Alloy",
+      "Compatibility": "1991-1998 Mercedes W140 S-Class",
+      "Warranty": "As Is"
+    },
+    history: "A rare and highly sought-after set of 4 original 18-inch AMG Monoblock wheels, specifically designed for the Mercedes-Benz W140 S-Class era. These wheels are in pristine original condition with minor cosmetic wear, free from bends or welds. Perfect for bringing back that authentic 90s VIP look to your classic S-Class."
   }
 ];
 
