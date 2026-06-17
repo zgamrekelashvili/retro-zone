@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — Post an Ad</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Catalog</a>
+        <a href="post.html" class="nav-link active">Post an Ad</a>
+        <a href="profile.html" class="nav-link">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="post-main">
+    <div class="post-container">
+      <div class="post-header">
+        <h1>List Your Classic</h1>
+        <p>Fill in the details below. Your listing will appear on your profile and in the catalog.</p>
+      </div>
+
+      <div id="success-card" class="success-card hidden">
+        <span class="success-icon">✅</span>
+        <h2>Ad Posted Successfully!</h2>
+        <p>Your listing has been saved. <a href="profile.html">View on your profile →</a></p>
+        <button class="btn btn-secondary" id="post-another">Post Another</button>
+      </div>
+
+      <form id="post-form" class="post-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ad-title">Listing Title <span class="req">*</span></label>
+            <input
+              type="text"
+              id="ad-title"
+              name="title"
+              placeholder="e.g. 1985 Ferrari Testarossa — Original Paint"
+              required
+              minlength="10"
+              maxlength="100"
+            />
+            <span class="field-error" id="err-title"></span>
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label for="ad-category">Category <span class="req">*</span></label>
+            <select id="ad-category" name="category" required>
+              <option value="">— Select Category —</option>
+              <option value="cars">Classic Car</option>
+              <option value="parts">Spare Part</option>
+            </select>
+            <span class="field-error" id="err-category"></span>
+          </div>
+          <div class="form-group">
+            <label for="ad-era">Era / Decade <span class="req">*</span></label>
+            <select id="ad-era" name="era" required>
+              <option value="">— Select Era —</option>
+              <option value="1970s">1970s</option>
+              <option value="1980s">1980s</option>
+              <option value="1990s">1990s</option>
+            </select>
+            <span class="field-error" id="err-era"></span>
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label for="ad-price">Asking Price (USD) <span class="req">*</span></label>
+            <input
+              type="number"
+              id="ad-price"
+              name="price"
+              placeholder="e.g. 45000"
+              required
+              min="1"
+            />
+            <span class="field-error" id="err-price"></span>
+          </div>
+          <div class="form-group">
+            <label for="ad-country">Country of Origin</label>
+            <select id="ad-country" name="country">
+              <option value="">— Select Country —</option>
+              <option value="USA">🇺🇸 USA</option>
+              <option value="Germany">🇩🇪 Germany</option>
+              <option value="Japan">🇯🇵 Japan</option>
+              <option value="Italy">🇮🇹 Italy</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Condition <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="filter-radio">
+                <input type="radio" name="condition" value="New" required /> New / Restored
+              </label>
+              <label class="filter-radio">
+                <input type="radio" name="condition" value="Used" /> Used — Good
+              </label>
+              <label class="filter-radio">
+                <input type="radio" name="condition" value="Project" /> Project / Parts Car
+              </label>
+            </div>
+            <span class="field-error" id="err-condition"></span>
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label for="ad-engine">Engine</label>
+            <input
+              type="text"
+              id="ad-engine"
+              name="engine"
+              placeholder="e.g. 5.0L V8, Twin-Turbo Flat-6"
+            />
+          </div>
+          <div class="form-group">
+            <label for="ad-trim">Trim Level</label>
+            <select id="ad-trim" name="trim">
+              <option value="">— Select Trim —</option>
+              <option value="Base">Base</option>
+              <option value="Sport">Sport</option>
+              <option value="Luxury">Luxury</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ad-email">Contact Email <span class="req">*</span></label>
+            <input
+              type="email"
+              id="ad-email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+            <span class="field-error" id="err-email"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ad-description">Description <span class="req">*</span></label>
+            <textarea
+              id="ad-description"
+              name="description"
+              rows="6"
+              placeholder="Describe the vehicle or part in detail — history, condition, modifications, documentation…"
+              required
+              minlength="30"
+            ></textarea>
+            <span class="field-error" id="err-description"></span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-large">Post Listing</button>
+          <button type="reset" class="btn btn-ghost">Clear Form</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Catalog</a>
+        <a href="profile.html">Profile</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+

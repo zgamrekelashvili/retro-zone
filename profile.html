@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — My Profile</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Catalog</a>
+        <a href="post.html" class="nav-link">Post an Ad</a>
+        <a href="profile.html" class="nav-link active">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="profile-main">
+    <div class="profile-container">
+      <div class="profile-hero">
+        <div class="profile-avatar">🧑‍🔧</div>
+        <div class="profile-info">
+          <h1 class="profile-name" id="profile-username">—</h1>
+          <p class="profile-meta" id="profile-email">—</p>
+          <div class="profile-stats">
+            <div class="stat-block">
+              <span class="stat-num" id="stat-listings">0</span>
+              <span class="stat-label">Listings</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num" id="stat-cart">0</span>
+              <span class="stat-label">Cart Items</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num" id="stat-member-year">2026</span>
+              <span class="stat-label">Member Year</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" id="logout-btn">Log Out</button>
+      </div>
+
+      <section class="profile-section">
+        <div class="section-header">
+          <h2>My Listings</h2>
+          <a href="post.html" class="btn btn-primary btn-sm">+ New Listing</a>
+        </div>
+        <div id="my-listings"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Catalog</a>
+        <a href="post.html">Post an Ad</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!--
+    Auth guard: runs before main.js's page logic populates listings.
+    If no session exists, redirect immediately to login.html so the
+    profile content never flashes on screen for a logged-out visitor.
+  -->
+  <script type="module">
+    import { getCurrentUser } from "./js/auth.js";
+
+    const user = getCurrentUser();
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("profile-username").textContent = user.username;
+      document.getElementById("profile-email").textContent = user.email;
+
+      const memberYear = new Date(user.createdAt).getFullYear();
+      const yearEl = document.getElementById("stat-member-year");
+      if (yearEl && !Number.isNaN(memberYear)) yearEl.textContent = memberYear;
+    }
+  </script>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
+
+

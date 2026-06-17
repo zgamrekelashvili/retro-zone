@@ -1,27 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login — Project Name</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroZone — Sign In</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span>
+        <span class="logo-sub">Classic Cars &amp; Parts</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Catalog</a>
+        <a href="post.html" class="nav-link">Post an Ad</a>
+        <a href="login.html" class="nav-link active">My Profile</a>
+        <a href="cart.html" class="nav-link cart-link">
+          🛒 Cart <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
 
-  <main>
+  <main class="post-main">
+    <div class="post-container" style="max-width: 480px;">
 
-    <form id="login-form">
-      <!-- input type="text" with validation attributes -->
-      <label for="name-input">Your name</label>
-      <input id="name-input" type="text" name="name" required minlength="2" autocomplete="name">
+      <div class="post-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to manage your listings, or create a free account to get started.</p>
+      </div>
 
-      <p id="login-error" hidden></p>
+      <!-- Tabs -->
+      <div class="catalog-tabs" style="margin-bottom: var(--space-lg); width: 100%;">
+        <button type="button" class="tab-btn active" id="tab-signin" style="flex:1;">Sign In</button>
+        <button type="button" class="tab-btn" id="tab-register" style="flex:1;">Register</button>
+      </div>
 
-      <button type="submit">Start →</button>
-    </form>
+      <!-- SIGN IN FORM -->
+      <form class="post-form" id="signin-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="login-email">Email <span class="req">*</span></label>
+            <input type="email" id="login-email" name="email" placeholder="you@example.com" autocomplete="email" />
+            <span class="field-error" id="err-login-email"></span>
+          </div>
+        </div>
 
+        <div class="form-row">
+          <div class="form-group">
+            <label for="login-password">Password <span class="req">*</span></label>
+            <input type="password" id="login-password" name="password" placeholder="••••••••" autocomplete="current-password" />
+            <span class="field-error" id="err-login-password"></span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        </div>
+
+        <p style="text-align:center; font-size: 13px; color: var(--color-chrome-dim);">
+          Don't have an account?
+          <a href="#" id="go-to-register">Register here</a>
+        </p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form class="post-form hidden" id="register-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="register-username">Username <span class="req">*</span></label>
+            <input type="text" id="register-username" name="username" placeholder="Classic Collector" autocomplete="username" />
+            <span class="field-error" id="err-register-username"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="register-email">Email <span class="req">*</span></label>
+            <input type="email" id="register-email" name="email" placeholder="you@example.com" autocomplete="email" />
+            <span class="field-error" id="err-register-email"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="register-password">Password <span class="req">*</span></label>
+            <input type="password" id="register-password" name="password" placeholder="At least 6 characters" autocomplete="new-password" />
+            <span class="field-error" id="err-register-password"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="register-confirm">Confirm Password <span class="req">*</span></label>
+            <input type="password" id="register-confirm" name="confirm" placeholder="Re-enter password" autocomplete="new-password" />
+            <span class="field-error" id="err-register-confirm"></span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </div>
+
+        <p style="text-align:center; font-size: 13px; color: var(--color-chrome-dim);">
+          Already have an account?
+          <a href="#" id="go-to-signin">Sign in here</a>
+        </p>
+      </form>
+
+    </div>
   </main>
 
-  <script type="module" src="js/login.js"></script>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-brand"><span class="logo-retro">RETRO</span><span class="logo-zone">ZONE</span></p>
+      <p class="footer-copy">&copy; 2026 RetroZone Marketplace. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Catalog</a>
+        <a href="post.html">Post an Ad</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>

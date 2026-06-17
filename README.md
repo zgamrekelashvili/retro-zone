@@ -1,27 +1,15 @@
-# Final Project Template
+# 🚗 RetroZone — რეტრო ავტომობილების და ნაწილების მარკეტფლეისი
 
-Starter scaffold for the Web Engineering 2026 final project. Open `index.html` in your browser and start building.
+ეს არის ვებ-ინჟინერიის 2026 წლის ფინალური პროექტი. საიტი წარმოადგენს კლასიკური ავტომობილებისა (1970-2000 წლები) და იშვიათი რეტრო ნაწილების ონლაინ სივრცეს.
 
-**Replace first:**
-- `BASE_URL` in `js/api.js` — your chosen API's base URL
-- `<title>` on all three HTML pages — your project name
-- Colour variables in `css/style.css`
-- Page names if needed — `login.html` / `saved.html` can be renamed to match your project
+## 🚀 ფუნქციონალი და გვერდები:
+* **მთავარი კატალოგი (`index.html`):** ორმაგი განყოფილება (მანქანები + ნაწილები) გაფართოებული ფილტრაციით (წლები, ქვეყნები, ძრავის მოცულობა, კომპლექტაცია).
+* **პროფილი და პოსტვა (`login.html`):** მომხმარებლის პირადი კაბინეტი და ახალი განცხადების განთავსების ფორმა მკაცრი HTML5 ვალიდაციით.
+* **კალათა და შეკვეთა (`saved.html`):** შენახული ნივთების სიის მართვა და სიმულაციური შეკვეთის სივრცე.
 
-**File structure:**
-```
-your-project/
-├── index.html        ← main page
-├── login.html        ← login / profile page (rename if needed)
-├── saved.html        ← saved items page (rename if needed)
-├── css/
-│   └── style.css
-├── js/
-│   ├── main.js       ← entry point for index.html
-│   ├── login.js      ← entry point for login.html
-│   ├── saved.js      ← entry point for saved.html
-│   └── api.js        ← fetch logic + localStorage helpers
-└── assets/
-```
+## 🛠️ გამოყენებული ტექნოლოგიები:
+* **HTML5:** სემანტიკური სტრუქტურა კოდის მაღალი ხელმისაწვდომობისთვის.
+* **CSS3:** Custom Properties (ცვლადები), Flexbox კომპონენტების სწორებისთვის, CSS Grid რესპონსიული ბადისთვის და მედია რექვერები.
+* **Vanilla JavaScript (ES6 Modules):** ასინქრონული ფუნქციები (`async/await`), `localStorage` მონაცემების შესანახად და კალათის სამართავად, და Closures (Debounce) ძებნის ოპტიმიზაციისთვის.
 
-See [project requirements](https://github.com/cu-cst-web1-2026-eng/materials/blob/main/lecture_13/final_project/README.md) for the full technical checklist and grading breakdown.
+WebSite link: https://retro-zone.netlify.app/cart
