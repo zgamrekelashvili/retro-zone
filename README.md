@@ -11,3 +11,5 @@
 * **HTML5:** სემანტიკური სტრუქტურა კოდის მაღალი ხელმისაწვდომობისთვის.
 * **CSS3:** Custom Properties (ცვლადები), Flexbox კომპონენტების სწორებისთვის, CSS Grid რესპონსიული ბადისთვის და მედია რექვერები.
 * **Vanilla JavaScript (ES6 Modules):** ასინქრონული ფუნქციები (`async/await`), `localStorage` მონაცემების შესანახად და კალათის სამართავად, და Closures (Debounce) ძებნის ოპტიმიზაციისთვის.
+
+WebSite link: https://retro-zone.netlify.app/cart
