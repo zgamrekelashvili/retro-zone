@@ -30,8 +30,8 @@
       <div class="profile-hero">
         <div class="profile-avatar">🧑‍🔧</div>
         <div class="profile-info">
-          <h1 class="profile-name">Classic Collector</h1>
-          <p class="profile-meta">Member since January 2026</p>
+          <h1 class="profile-name" id="profile-username">—</h1>
+          <p class="profile-meta" id="profile-email">—</p>
           <div class="profile-stats">
             <div class="stat-block">
               <span class="stat-num" id="stat-listings">0</span>
@@ -42,11 +42,12 @@
               <span class="stat-label">Cart Items</span>
             </div>
             <div class="stat-block">
-              <span class="stat-num">2026</span>
+              <span class="stat-num" id="stat-member-year">2026</span>
               <span class="stat-label">Member Year</span>
             </div>
           </div>
         </div>
+        <button class="btn btn-ghost" id="logout-btn">Log Out</button>
       </div>
 
       <section class="profile-section">
@@ -71,7 +72,30 @@
     </div>
   </footer>
 
+  <!--
+    Auth guard: runs before main.js's page logic populates listings.
+    If no session exists, redirect immediately to login.html so the
+    profile content never flashes on screen for a logged-out visitor.
+  -->
+  <script type="module">
+    import { getCurrentUser } from "./js/auth.js";
+
+    const user = getCurrentUser();
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("profile-username").textContent = user.username;
+      document.getElementById("profile-email").textContent = user.email;
+
+      const memberYear = new Date(user.createdAt).getFullYear();
+      const yearEl = document.getElementById("stat-member-year");
+      if (yearEl && !Number.isNaN(memberYear)) yearEl.textContent = memberYear;
+    }
+  </script>
+
   <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>
+
 
