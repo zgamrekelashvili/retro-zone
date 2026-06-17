@@ -707,3 +707,389 @@ function validateCheckoutForm() {
 
   return valid;
 }
+/* =========================================================
+   RetroZone — main.js
+   Covers: auth helpers, catalog, post, cart, profile
+   All persistence via localStorage with "rz_" prefix
+   ========================================================= */
+
+/* ─── STORAGE KEYS ───────────────────────────────────────── */
+const RZ_USER_KEY      = 'rz_current_user';   // { username, email, memberYear }
+const RZ_LISTINGS_KEY  = 'rz_listings';        // [ ListingObject, … ]
+const RZ_CART_KEY      = 'rz_cart';            // [ CartItem, … ]
+const RZ_ORDERS_PREFIX = 'rz_orders_';         // + email → [ OrderObject, … ]
+
+/* ─── AUTH HELPERS ───────────────────────────────────────── */
+function rzGetCurrentUser() {
+  try { return JSON.parse(localStorage.getItem(RZ_USER_KEY)) || null; }
+  catch { return null; }
+}
+
+function rzSetCurrentUser(user) {
+  localStorage.setItem(RZ_USER_KEY, JSON.stringify(user));
+}
+
+function rzLogout() {
+  localStorage.removeItem(RZ_USER_KEY);
+  window.location.href = 'login.html';
+}
+
+/* ─── LISTINGS HELPERS ───────────────────────────────────── */
+function rzGetListings() {
+  try { return JSON.parse(localStorage.getItem(RZ_LISTINGS_KEY)) || []; }
+  catch { return []; }
+}
+
+function rzSaveListing(listing) {
+  const listings = rzGetListings();
+  listings.unshift(listing);                   // newest first
+  localStorage.setItem(RZ_LISTINGS_KEY, JSON.stringify(listings));
+}
+
+/* ─── CART HELPERS ───────────────────────────────────────── */
+function rzGetCart() {
+  try { return JSON.parse(localStorage.getItem(RZ_CART_KEY)) || []; }
+  catch { return []; }
+}
+
+function rzSaveCart(cart) {
+  localStorage.setItem(RZ_CART_KEY, JSON.stringify(cart));
+}
+
+function rzAddToCart(item) {
+  const cart = rzGetCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    existing.qty = (existing.qty || 1) + 1;
+  } else {
+    cart.push({ ...item, qty: 1 });
+  }
+  rzSaveCart(cart);
+  rzUpdateCartBadge();
+}
+
+function rzClearCart() {
+  localStorage.removeItem(RZ_CART_KEY);
+  rzUpdateCartBadge();
+}
+
+function rzUpdateCartBadge() {
+  const badge = document.querySelector('.cart-badge, #cart-count, [data-cart-count]');
+  if (!badge) return;
+  const total = rzGetCart().reduce((s, i) => s + (i.qty || 1), 0);
+  badge.textContent = total;
+}
+
+/* ─── ORDERS HELPERS ─────────────────────────────────────── */
+function rzGetOrders(email) {
+  try { return JSON.parse(localStorage.getItem(RZ_ORDERS_PREFIX + email)) || []; }
+  catch { return []; }
+}
+
+function rzSaveOrder(email, order) {
+  const orders = rzGetOrders(email);
+  orders.unshift(order);
+  localStorage.setItem(RZ_ORDERS_PREFIX + email, JSON.stringify(orders));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE: index.html — CATALOG
+   ═══════════════════════════════════════════════════════════ */
+function rzInitCatalog() {
+  const grid = document.querySelector('.catalog-grid, #listings-grid, [data-catalog]');
+  if (!grid) return;
+
+  const userListings = rzGetListings();
+  if (userListings.length === 0) return;
+
+  userListings.forEach(listing => {
+    const card = document.createElement('div');
+    card.className = 'listing-card';          // reuse your existing card class
+    card.innerHTML = `
+      <div class="listing-card__img-wrap">
+        ${listing.imageDataUrl
+          ? `<img src="${listing.imageDataUrl}" alt="${listing.title}" loading="lazy">`
+          : `<div class="listing-card__no-img">📷</div>`}
+        <span class="listing-card__badge">${listing.category || 'Listing'}</span>
+      </div>
+      <div class="listing-card__body">
+        <h3 class="listing-card__title">${listing.title}</h3>
+        <p class="listing-card__desc">${listing.description || ''}</p>
+        <div class="listing-card__footer">
+          <span class="listing-card__price">$${Number(listing.price).toLocaleString()}</span>
+          <button class="btn btn--gold btn--sm" onclick="rzAddToCart(${JSON.stringify(listing).replace(/"/g, '&quot;')})">
+            Add to Cart
+          </button>
+        </div>
+      </div>`;
+    grid.prepend(card);                       // user listings appear first
+  });
+
+  rzUpdateCartBadge();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE: post.html — POST AN AD
+   ═══════════════════════════════════════════════════════════ */
+function rzInitPostForm() {
+  const form = document.querySelector('#post-form, .post-form, [data-post-form]');
+  if (!form) return;
+
+  // Guard: redirect to login if not authenticated
+  const user = rzGetCurrentUser();
+  if (!user) {
+    alert('Please log in to post a listing.');
+    window.location.href = 'login.html';
+    return;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const fd = new FormData(form);
+
+    // Read image if provided
+    const imageFile = form.querySelector('[name="image"], #listing-image')?.files?.[0];
+
+    function finalize(imageDataUrl) {
+      const listing = {
+        id:           'rz_' + Date.now(),
+        title:        fd.get('title')       || form.querySelector('[name="title"], #title')?.value || '',
+        description:  fd.get('description') || form.querySelector('[name="description"], #description, textarea')?.value || '',
+        price:        fd.get('price')       || form.querySelector('[name="price"], #price')?.value || 0,
+        category:     fd.get('category')    || form.querySelector('[name="category"], #category, select')?.value || 'Other',
+        condition:    fd.get('condition')   || form.querySelector('[name="condition"], #condition')?.value || '',
+        sellerEmail:  user.email,
+        sellerName:   user.username,
+        postedAt:     new Date().toISOString(),
+        imageDataUrl: imageDataUrl || null,
+      };
+
+      rzSaveListing(listing);
+
+      // Update profile listing counter
+      const storedUser = rzGetCurrentUser();
+      if (storedUser) {
+        storedUser.listingCount = (storedUser.listingCount || 0) + 1;
+        rzSetCurrentUser(storedUser);
+      }
+
+      // Visual feedback then redirect
+      const btn = form.querySelector('[type="submit"]');
+      if (btn) { btn.textContent = '✓ Posted!'; btn.disabled = true; }
+      setTimeout(() => { window.location.href = 'index.html'; }, 900);
+    }
+
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onload = ev => finalize(ev.target.result);
+      reader.readAsDataURL(imageFile);
+    } else {
+      finalize(null);
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE: cart.html — CART & CHECKOUT
+   ═══════════════════════════════════════════════════════════ */
+function rzInitCart() {
+  const cartContainer = document.querySelector('#cart-items, .cart-items, [data-cart-items]');
+  if (!cartContainer) return;
+
+  function renderCart() {
+    const cart = rzGetCart();
+    cartContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      return;
+    }
+
+    let subtotal = 0;
+    cart.forEach((item, idx) => {
+      const lineTotal = Number(item.price) * (item.qty || 1);
+      subtotal += lineTotal;
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+      row.innerHTML = `
+        <div class="cart-row__info">
+          <span class="cart-row__title">${item.title}</span>
+          <span class="cart-row__meta">Qty: ${item.qty || 1} × $${Number(item.price).toLocaleString()}</span>
+        </div>
+        <div class="cart-row__actions">
+          <span class="cart-row__total">$${lineTotal.toLocaleString()}</span>
+          <button class="btn btn--ghost btn--sm" data-remove="${idx}">✕</button>
+        </div>`;
+      cartContainer.appendChild(row);
+    });
+
+    // Subtotal line
+    const totalEl = document.querySelector('#cart-subtotal, .cart-subtotal, [data-cart-subtotal]');
+    if (totalEl) totalEl.textContent = `$${subtotal.toLocaleString()}`;
+
+    // Remove buttons
+    cartContainer.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const c = rzGetCart();
+        c.splice(Number(btn.dataset.remove), 1);
+        rzSaveCart(c);
+        rzUpdateCartBadge();
+        renderCart();
+      });
+    });
+  }
+
+  renderCart();
+
+  // ── CHECKOUT BUTTON ────────────────────────────────────
+  const checkoutBtn = document.querySelector(
+    '#checkout-btn, .checkout-btn, [data-checkout], button[type="submit"].checkout, .btn--checkout'
+  );
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const user = rzGetCurrentUser();
+      if (!user) {
+        alert('Please log in to complete your purchase.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const cart = rzGetCart();
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      const order = {
+        orderId:   'ORD-' + Date.now(),
+        items:     cart,
+        total:     cart.reduce((s, i) => s + Number(i.price) * (i.qty || 1), 0),
+        placedAt:  new Date().toISOString(),
+        status:    'Pending',
+      };
+
+      rzSaveOrder(user.email, order);
+      rzClearCart();
+      renderCart();
+
+      // Brief confirmation then redirect
+      checkoutBtn.textContent = '✓ Order Placed!';
+      checkoutBtn.disabled = true;
+      setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE: profile.html — PROFILE DASHBOARD
+   ═══════════════════════════════════════════════════════════ */
+function rzInitProfile() {
+  const user = rzGetCurrentUser();
+
+  // ── Logout button ──────────────────────────────────────
+  const logoutBtn = document.querySelector('#logout-btn, .logout-btn, [data-logout]');
+  if (logoutBtn) logoutBtn.addEventListener('click', rzLogout);
+
+  if (!user) return;
+
+  // ── Stats counters ─────────────────────────────────────
+  const allListings = rzGetListings().filter(l => l.sellerEmail === user.email);
+  const allOrders   = rzGetOrders(user.email);
+
+  const elListings    = document.querySelector('[data-stat="listings"], .stat-listings, #stat-listings');
+  const elCartItems   = document.querySelector('[data-stat="cart-items"], .stat-cart, #stat-cart');
+  const elMemberYear  = document.querySelector('[data-stat="member-year"], .stat-year, #stat-year');
+
+  if (elListings)   elListings.textContent   = allListings.length;
+  if (elCartItems)  elCartItems.textContent  = allOrders.reduce((s, o) => s + o.items.length, 0);
+  if (elMemberYear) elMemberYear.textContent = user.memberYear || new Date().getFullYear();
+
+  // ── My Listings section ────────────────────────────────
+  const listingsSection = document.querySelector('#my-listings-grid, .my-listings-grid, [data-my-listings]');
+  if (listingsSection) {
+    if (allListings.length === 0) {
+      listingsSection.innerHTML = `
+        <div class="empty-state">
+          <span class="empty-state__icon">📋</span>
+          <p>You haven't posted any listings yet.</p>
+          <a href="post.html" class="btn btn--gold">Post your first listing →</a>
+        </div>`;
+    } else {
+      listingsSection.innerHTML = allListings.map(l => `
+        <div class="listing-card listing-card--compact">
+          ${l.imageDataUrl ? `<img src="${l.imageDataUrl}" alt="${l.title}" class="listing-card__thumb">` : ''}
+          <div class="listing-card__body">
+            <span class="listing-card__title">${l.title}</span>
+            <span class="listing-card__price">$${Number(l.price).toLocaleString()}</span>
+            <span class="listing-card__cat">${l.category}</span>
+          </div>
+        </div>`).join('');
+    }
+  }
+
+  // ── My Orders section ──────────────────────────────────
+  const ordersSection = document.querySelector('#my-orders, .my-orders, [data-my-orders]');
+  if (!ordersSection) {
+    // Auto-inject orders section below the listings block if none exists in HTML
+    const anchor = document.querySelector('.profile-content, .dashboard, main') || document.body;
+    const section = document.createElement('section');
+    section.className = 'my-orders-section';
+    section.innerHTML = `<h2 class="section-title">My Orders</h2><div id="my-orders-list"></div>`;
+    anchor.appendChild(section);
+  }
+
+  const ordersList = document.querySelector('#my-orders-list, .my-orders-list, [data-orders-list]')
+                  || document.querySelector('#my-orders, .my-orders, [data-my-orders]');
+
+  if (ordersList) {
+    if (allOrders.length === 0) {
+      ordersList.innerHTML = '<p class="orders-empty">No orders yet. <a href="index.html" class="link--gold">Browse the catalog →</a></p>';
+    } else {
+      ordersList.innerHTML = allOrders.map(order => `
+        <div class="order-card">
+          <div class="order-card__header">
+            <span class="order-card__id">${order.orderId}</span>
+            <span class="order-card__status order-card__status--${order.status.toLowerCase()}">${order.status}</span>
+            <span class="order-card__date">${new Date(order.placedAt).toLocaleDateString()}</span>
+          </div>
+          <ul class="order-card__items">
+            ${order.items.map(i => `
+              <li class="order-card__item">
+                <span>${i.title}</span>
+                <span>×${i.qty || 1}</span>
+                <span>$${(Number(i.price) * (i.qty || 1)).toLocaleString()}</span>
+              </li>`).join('')}
+          </ul>
+          <div class="order-card__total">Total: <strong>$${order.total.toLocaleString()}</strong></div>
+        </div>`).join('');
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ROUTER — auto-detect current page and initialise
+   ═══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  rzUpdateCartBadge();
+
+  const path = window.location.pathname.toLowerCase();
+  const page = path.split('/').pop().replace('.html', '') || 'index';
+
+  switch (page) {
+    case 'index':
+    case '':
+      rzInitCatalog();
+      break;
+    case 'post':
+      rzInitPostForm();
+      break;
+    case 'cart':
+      rzInitCart();
+      break;
+    case 'profile':
+      rzInitProfile();
+      break;
+  }
+});
