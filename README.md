@@ -13,4 +13,4 @@ HTML5: Semantic structure designed for high code accessibility and SEO friendlin
 CSS3: Custom Properties (variables), Flexbox for component alignment, CSS Grid for responsive layouts, and media queries.
 Vanilla JavaScript (ES6 Modules): Asynchronous functions (async/await), localStorage for data persistence and cart management, and Closures (Debounce) for search optimization.
 
-WebSite link: https://retro-zone.netlify.app/cart
+WebSite link: https://retro-zone.netlify.app/
